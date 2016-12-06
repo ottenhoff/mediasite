@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" "http://www.springframework.org/dtd/spring-beans.dtd">
+<beans>
+	<bean id="MemoryDao"
+		class="org.sakaiproject.mediasite.tool.MemoryDao" 
+		init-method="init">
+	</bean>
+
+	<bean parent="org.sakaiproject.entitybroker.entityprovider.AbstractEntityProvider" 
+			class="org.sakaiproject.mediasite.tool.MediasiteEntityProvider">
+		<property name="dao" ref="MemoryDao" />
+	</bean>
+	<bean id="org.sakaiproject.mediasite.tool.MediasiteLTI"
+	        class="org.sakaiproject.mediasite.tool.MediasiteLTI">
+		<property name="sessionManager"><ref bean="org.sakaiproject.tool.api.SessionManager"/></property>
+		<property name="securityService"><ref bean="org.sakaiproject.authz.api.SecurityService"/></property>
+		<property name="siteService"><ref bean="org.sakaiproject.site.api.SiteService"/></property>
+ 		
+	</bean>	
+</beans>

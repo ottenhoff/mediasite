@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<tomcatProjectProperties>
+    <rootDir>/</rootDir>
+    <exportSource>false</exportSource>
+    <reloadable>true</reloadable>
+    <redirectLogger>false</redirectLogger>
+    <updateXml>true</updateXml>
+    <warLocation></warLocation>
+    <extraInfo></extraInfo>
+    <webPath></webPath>
+    <webClassPathEntries>
+        <webClassPathEntry>C:/Users/Ellen.Borchardt/.m2/repository/javax/servlet/jsp/jsp-api/2.2/jsp-api-2.2.jar</webClassPathEntry>
+        <webClassPathEntry>C:/sakai/tomcat/lib/servlet-api.jar</webClassPathEntry>
+    </webClassPathEntries>
+</tomcatProjectProperties>

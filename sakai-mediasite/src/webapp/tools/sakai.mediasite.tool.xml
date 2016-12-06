@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+
+<registration>
+
+	<tool
+			id="sakai.mediasite.tool"
+			title="Mediasite tool"
+			description="A Sakai based Mediasite tool."
+	>
+
+		<category name="sakai.mediasite" />
+
+	</tool>
+
+</registration>

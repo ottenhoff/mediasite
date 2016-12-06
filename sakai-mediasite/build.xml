@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<project name="sakai-mediasite" default="package" basedir=".">
+  <taskdef name="xmltask" classname="com.oopsconsultancy.xmltask.ant.XmlTask">
+	<classpath path="../../../../3rdParty/sdk/Java/Ant/org.apache.ant_1.8.3.v201301120609/lib/xmltask.jar"/>
+  </taskdef>
+  
+  <description>
+       Mediasite for Sakai
+  </description>
+	
+  <!-- ====================================================================== -->
+  <!-- Build environment properties                                           -->
+  <!-- ====================================================================== -->	
+  <buildnumber/> 
+  <!-- Create the time stamp -->
+  <tstamp />
+  <property name="version" value="1.0" />
+  <property name="build.finalName" value="sakai-mediasite-${version}.${build.number}"/>
+  <property name="build.dir" value="target/zip"/>
+  <property name="build.outputDir" value="${build.dir}/classes"/>
+  <property name="build.srcDir.0" value="src/java"/>
+  <property name="build.resourceDir.0" value="src/bundle"/>
+  
+  <property name="package.finalName" value="sakai-mediasite-${version}.${build.number}-package"/>
+  <property name="package.dir" value="target"/>
+  
+  <property name="src.lib" location="src/webapp/WEB-INF/lib" />
+  <property name="target.lib" location="${build.dir}/${build.finalName}/WEB-INF/lib" />
+  <property name="src.webapp" location="src/webapp" />
+
+  
+  <!-- ====================================================================== -->
+  <!-- Defining classpaths                                                    -->
+  <!-- ====================================================================== -->
+
+  <path id="build.classpath">
+    <fileset dir="${src.lib}" includes="**/*.jar" />
+    <fileset dir="src/jars" includes="**/*.jar" />
+  </path>
+  
+
+  <!-- ====================================================================== -->
+  <!-- Cleaning up target                                                     -->
+  <!-- ====================================================================== -->
+  <target name="check-dev">
+	<available file="developer.machine" property="check.dev" />
+  </target>
+  
+  <target name="clean" description="Clean the output directory">
+    <delete dir="${target.lib}"/>
+	<delete dir="${build.outputDir}"/>
+    <delete dir="${build.dir}"/>
+
+  </target>
+
+  <!-- ====================================================================== -->
+  <!-- Compilation target                                                     -->
+  <!-- ====================================================================== -->
+
+  <target name="compile" depends="clean,check-dev" description="Compile the code">
+
+	<mkdir dir="${build.dir}"/>    	
+	<mkdir dir="${build.outputDir}"/>
+
+	<xmltask source="pom.xml" dest="pom.xml">
+	     <replace path="/*[name()='project']/*[name()='version']/text()" withText="${version}.${build.number}" />
+	</xmltask>
+  </target>
+  
+  	<target name="debug-build" if="check.dev" depends="compile">
+		<echo message="Debug Build" />
+		<javac debug="true" srcdir="${build.srcDir.0}" destdir="${build.outputDir}" classpathref="build.classpath" verbose="yes" includeantruntime="false" source="1.6" target="1.6" bootclasspath="..\..\..\..\..\3rdParty\sdk\Java\JDK\1.6\rt.jar,..\..\..\..\..\3rdParty\sdk\Java\JDK\1.6\jce.jar" />
+	</target>
+	<target name="release-build" unless="check.dev" depends="compile">
+		<echo message="Release Build" />
+		<javac srcdir="${build.srcDir.0}" destdir="${build.outputDir}" classpathref="build.classpath" verbose="yes" includeantruntime="false" source="1.6" target="1.6" bootclasspath="..\..\..\..\..\3rdParty\sdk\Java\JDK\1.6\rt.jar,..\..\..\..\..\3rdParty\sdk\Java\JDK\1.6\jce.jar" />
+	</target>
+
+  <!-- ====================================================================== -->
+  <!-- Package target                                                         -->
+  <!-- ====================================================================== -->
+
+  <target name="package" depends="debug-build, release-build" description="Package the application">
+
+    <war destfile="${build.dir}/${build.finalName}.war" 
+         compress="true" 
+         webxml="src/webapp/WEB-INF/web.xml">
+	  <classes dir="${build.outputDir}"/>
+      <fileset dir="${src.webapp}" 
+               excludes="WEB-INF/web.xml"/>
+    </war>
+	<zip destfile="${build.dir}/${build.finalName}.zip"
+	     basedir="../Mediasite.Editor.Plugin"/>
+	     
+	<delete dir="${build.outputDir}"/>	
+		
+	<zip destfile="${package.dir}/${package.finalName}.zip"
+	     basedir="${build.dir}"/>
+		 
+	<delete dir="${build.dir}"/>
+	     
+  </target>
+
+  <!-- ====================================================================== -->
+  <!-- A dummy target for the package named after the type it creates         -->
+  <!-- ====================================================================== -->
+
+  <target name="war" depends="package" description="Builds the war for the application"/>
+
+  
+  <!-- ====================================================================== -->
+  <!-- Help target                                                            -->
+  <!-- ====================================================================== -->
+
+  <target name="help">
+    <echo message="Please run: $ant -projecthelp"/>
+  </target>
+
+</project>
