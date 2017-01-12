@@ -62,7 +62,7 @@
       <type>pom</type>
     </dependency>                     
     <dependency>
-		<groupId>org.imsglobal</groupId>
+		<groupId>org.sakaiproject.basiclti</groupId>
 		<artifactId>basiclti-util</artifactId>
 		<version>${sakai.version}</version>
 	</dependency>
