@@ -62,9 +62,9 @@
       <type>pom</type>
     </dependency>                     
     <dependency>
-		<groupId>org.sakaiproject.basiclti</groupId>
+		<groupId>org.imsglobal</groupId>
 		<artifactId>basiclti-util</artifactId>
-		<version>${sakai.version}</version>
+		<version>1.1.2</version>
 	</dependency>
     <dependency>
       <groupId>javax.servlet</groupId>
