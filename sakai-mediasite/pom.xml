@@ -54,7 +54,7 @@
     <dependency> 
      <groupId>org.springframework</groupId> 
      <artifactId>spring-aspects</artifactId> 
-     <version>1.0.1 </version>
+     <version>${kernel.spring.version} </version>
 	</dependency>
     <dependency>
       <groupId>org.sakaiproject.jsf</groupId>
