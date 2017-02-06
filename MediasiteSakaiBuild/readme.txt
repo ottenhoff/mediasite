@@ -1,10 +1,6 @@
-This project is meant to build the Mediasite Building Block for Blackboard. The
-building block is written in Java and should be compiled against JDK 1.6 (a.k.a.
-Java 6) for compatibility with more Blackboard Service Packs. The more recent 
-Blackboard Service Packs require JDK 1.7 -- Java 7.
-
-The build.bat file calls Ant to build the a WAR file that will be deposited in
-..\MediasiteBlackboardPlugin\target\lib\*.war
+This project is meant to build the Mediasite integration for Sakai. The
+tool is written in Java and should be compiled with the same JDK used to build
+Sakai (Java 6 for Sakai 2.9, Java 7 for Sakai 10, Java 8 for Sakai 11).
 
 Build.xml can be customized to control how the output WAR file is named if 
 necessary. Ant will automatically increment the build number in 
